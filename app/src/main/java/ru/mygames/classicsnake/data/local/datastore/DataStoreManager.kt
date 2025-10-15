@@ -40,7 +40,7 @@ class DataStoreManager(context: Context) {
         }
     }
 
-    suspend fun saveGameResult(newValue: UserGameResultDto) {
+    suspend fun saveGameResult(newValue: UserGameResult) {
         dataStore.updateData {
             val gameResults = it.gameResults.toMutableMap()
             val results = gameResults.getOrDefault(it.gameLevel, emptyList()).toMutableList()

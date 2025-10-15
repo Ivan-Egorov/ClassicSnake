@@ -24,7 +24,7 @@ fun NavHostScreen(
         }
 
         composable<NavScreen.RatingTable> {
-            RatingTableScreen()
+            RatingTableScreen(navHostController)
         }
 
         composable<NavScreen.Settings> {

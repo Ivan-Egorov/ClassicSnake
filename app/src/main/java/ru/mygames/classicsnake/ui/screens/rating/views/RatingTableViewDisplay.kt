@@ -14,7 +14,11 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import ru.mygames.classicsnake.domain.models.UserGameResult
+import ru.mygames.classicsnake.data.local.datastore.GameLevel
+//import ru.mygames.classicsnake.domain.models.UserGameResult
+import ru.mygames.classicsnake.data.local.datastore.UserGameResult
+import ru.mygames.classicsnake.ui.screens.rating.models.RatingTableEvent
+import ru.mygames.classicsnake.ui.screens.rating.models.RatingTableViewState
 import ru.mygames.classicsnake.ui.theme.ClassicSnakeTheme
 import ru.mygames.classicsnake.ui.theme.components.JetSection
 import ru.mygames.classicsnake.ui.theme.components.JetSwitch
@@ -22,6 +26,8 @@ import ru.mygames.classicsnake.ui.theme.components.JetTextButton
 
 @Composable
 fun RatingTableViewDisplay(
+    state: RatingTableViewState.Display,
+    dispatcher: (RatingTableEvent) -> Unit
 
 ) {
     Column(
@@ -42,9 +48,9 @@ fun RatingTableViewDisplay(
         ) {
             JetSwitch(
                 items = listOf("Easy", "Normal", "Difficult"),
-                selectedItemId = 1,
+                selectedItemId = state.gameLevel.ordinal,
                 modifier = Modifier.fillMaxWidth()
-            ) {  }
+            ) { number: Int -> dispatcher.invoke(RatingTableEvent.ChangeDifficultyLevel(number)) }
         }
 
         JetSection(
@@ -52,13 +58,13 @@ fun RatingTableViewDisplay(
             modifier = Modifier.weight(1f)
         ) {
             RatingTableCard(
-//                results = emptyList()
-                results = listOf(
+                results = state.gameResults
+                /*results = listOf(
                     UserGameResult(350, "02:37"),
                     UserGameResult(220, "01:55"),
                     UserGameResult(190, "01:50"),
                     UserGameResult(180, "00:52")
-                )
+                )*/
             )
         }
 
@@ -67,7 +73,7 @@ fun RatingTableViewDisplay(
         JetTextButton(
             text = "Return",
             modifier = Modifier.fillMaxWidth()
-        ) {  }
+        ) { dispatcher.invoke(RatingTableEvent.CloseScreen) }
     }
 }
 
@@ -75,6 +81,16 @@ fun RatingTableViewDisplay(
 @Composable
 private fun RatingTableViewDisplayPreview() {
     ClassicSnakeTheme {
-        RatingTableViewDisplay()
+        RatingTableViewDisplay(
+            RatingTableViewState.Display(
+                GameLevel.Easy,
+                listOf(
+                    UserGameResult(350, "02:37"),
+                    UserGameResult(220, "01:55"),
+                    UserGameResult(190, "01:50"),
+                    UserGameResult(180, "00:52")
+                )
+            )
+        ) {}
     }
 }

@@ -8,11 +8,11 @@ data class UserSettings(
     val boardSize: GameBoardSize = GameBoardSize.Medium,
     val spawnChanceOfBonusItems: SpawnChanceOfBonusItems = SpawnChanceOfBonusItems.Normal,
     val gameRules: GameRules = GameRules(),
-    val gameResults: Map<GameLevel, List<UserGameResultDto>> = emptyMap()
+    val gameResults: Map<GameLevel, List<UserGameResult>> = emptyMap()
 )
 
 @Serializable
-data class UserGameResultDto(
+data class UserGameResult(
     val score: Int,
     val time: String
 )

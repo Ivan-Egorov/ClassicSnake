@@ -23,7 +23,8 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import ru.mygames.classicsnake.domain.models.UserGameResult
+//import ru.mygames.classicsnake.domain.models.UserGameResult
+import ru.mygames.classicsnake.data.local.datastore.UserGameResult
 import ru.mygames.classicsnake.ui.theme.ClassicSnakeTheme
 
 import com.microsoft.fluent.mobile.icons.R
