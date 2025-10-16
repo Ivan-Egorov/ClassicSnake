@@ -15,8 +15,8 @@ import androidx.compose.material3.Text
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import ru.mygames.classicsnake.data.local.datastore.GameLevel
-//import ru.mygames.classicsnake.domain.models.UserGameResult
-import ru.mygames.classicsnake.data.local.datastore.UserGameResult
+import ru.mygames.classicsnake.domain.models.UserGameResult
+//import ru.mygames.classicsnake.data.local.datastore.UserGameResult
 import ru.mygames.classicsnake.ui.screens.rating.models.RatingTableEvent
 import ru.mygames.classicsnake.ui.screens.rating.models.RatingTableViewState
 import ru.mygames.classicsnake.ui.theme.ClassicSnakeTheme

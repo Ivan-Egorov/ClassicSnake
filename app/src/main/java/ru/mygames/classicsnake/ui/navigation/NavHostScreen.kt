@@ -32,7 +32,7 @@ fun NavHostScreen(
         }
 
         composable<NavScreen.Game> {
-            GameScreen()
+            GameScreen(navHostController)
         }
     }
 }

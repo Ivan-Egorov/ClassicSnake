@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -24,6 +25,10 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.core.graphics.drawable.toBitmap
 import androidx.core.graphics.scale
 import ru.mygames.classicsnake.R
+import ru.mygames.classicsnake.data.local.datastore.GameBoardSize
+import ru.mygames.classicsnake.domain.models.BonusItem
+import ru.mygames.classicsnake.domain.models.BonusType
+import ru.mygames.classicsnake.domain.models.Direction
 import ru.mygames.classicsnake.domain.models.Point
 import ru.mygames.classicsnake.domain.models.Snake
 import ru.mygames.classicsnake.ui.theme.ClassicSnakeTheme
@@ -34,9 +39,9 @@ import ru.mygames.classicsnake.ui.theme.ClassicSnakeTheme
 fun GameBoard(
     modifier: Modifier = Modifier,
     snake: Snake,
-    bonusItems: List<Point>,
+    bonusItems: List<BonusItem>,
     blockItems: List<Point>,
-    //boardSize: GameBoardSize
+    boardSize: GameBoardSize
 ) {
     val context = LocalContext.current
 
@@ -61,13 +66,13 @@ fun GameBoard(
             width = 6.dp,
             color = MaterialTheme.colorScheme.onTertiaryContainer.copy(0.35f),
             //color = Color(0xFFD7E0D7),
-            shape = RoundedCornerShape(16.dp)
-        )
+            shape = RoundedCornerShape(16.dp)),
+        contentAlignment = Alignment.Center
     ) {
         Canvas(
             modifier = Modifier
                 .padding(6.dp)
-                .requiredSize(this.maxWidth)
+                .requiredSize(this.maxWidth - 12.dp)
                 //.requiredSize(this.maxWidth - 6.dp, this.maxWidth - 6.dp)
                 .background(
                     color = MaterialTheme.colorScheme.onTertiaryContainer.copy(0.05f),
@@ -77,15 +82,15 @@ fun GameBoard(
             val canvasWidth = size.width
             val canvasHeight = size.height
 
-            val fieldWidth = canvasWidth / 10
-            val fieldHeight = canvasHeight / 10
+            val fieldWidth = canvasWidth / boardSize.columns
+            val fieldHeight = canvasHeight / boardSize.rows
 
             if(appleImage != null) {
                 bonusItems.forEach { item ->
                     drawObject(
                         drawScope = this,
                         imageBitmap = appleImage,
-                        coordinates = item,
+                        coordinates = item.position,
                         width = fieldWidth,
                         height = fieldHeight
                     )
@@ -173,9 +178,10 @@ fun drawSnake(
 private fun GameBoardPreview() {
     ClassicSnakeTheme {
         GameBoard(
-            snake = Snake(listOf(Point(5,5), Point(4,5), Point(3,5))),
-            bonusItems = listOf(Point(0, 3)),
-            blockItems = listOf(Point(9, 2))
+            snake = Snake(listOf(Point(5,5), Point(4,5), Point(3,5)), Direction.NONE),
+            bonusItems = listOf(BonusItem(Point(0, 3), BonusType.IncreaseScore)),
+            blockItems = listOf(Point(9, 2)),
+            boardSize = GameBoardSize.Small
         )
     }
 }

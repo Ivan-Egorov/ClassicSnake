@@ -8,7 +8,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavController
 import ru.mygames.classicsnake.data.local.datastore.DataStoreManager
 import ru.mygames.classicsnake.data.local.datastore.GameLevel
-import ru.mygames.classicsnake.data.local.datastore.UserGameResult
+import ru.mygames.classicsnake.domain.models.UserGameResult
+//import ru.mygames.classicsnake.data.local.datastore.UserGameResult
 import ru.mygames.classicsnake.ui.screens.rating.models.RatingTableEvent
 import ru.mygames.classicsnake.ui.screens.rating.models.RatingTableViewState
 import ru.mygames.classicsnake.ui.screens.rating.views.RatingTableViewDisplay

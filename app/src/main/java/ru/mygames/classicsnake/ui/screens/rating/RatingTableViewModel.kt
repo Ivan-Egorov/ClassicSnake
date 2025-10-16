@@ -5,6 +5,7 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import ru.mygames.classicsnake.data.local.datastore.DataStoreManager
 import ru.mygames.classicsnake.data.local.datastore.GameLevel
+import ru.mygames.classicsnake.domain.models.toDomain
 import ru.mygames.classicsnake.ui.base.architecture.BaseViewModel
 import ru.mygames.classicsnake.ui.screens.rating.models.RatingTableAction
 import ru.mygames.classicsnake.ui.screens.rating.models.RatingTableEvent
@@ -38,7 +39,7 @@ class RatingTableViewModel(
         viewModelScope.launch {
             val settings = dataStoreManager.appSettings.first()
             val results = settings.gameResults.getOrDefault(settings.gameLevel, emptyList())
-            viewState = RatingTableViewState.Display(settings.gameLevel, results)
+            viewState = RatingTableViewState.Display(settings.gameLevel, results.map { it.toDomain() })
         }
     }
 
@@ -48,7 +49,7 @@ class RatingTableViewModel(
 
             val settings = dataStoreManager.appSettings.first()
             val results = settings.gameResults.getOrDefault(gameLevel, emptyList())
-            viewState = RatingTableViewState.Display(gameLevel, results)
+            viewState = RatingTableViewState.Display(gameLevel, results.map { it.toDomain() })
         }
     }
 

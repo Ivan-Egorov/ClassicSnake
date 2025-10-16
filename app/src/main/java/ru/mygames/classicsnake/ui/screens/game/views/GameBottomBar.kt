@@ -21,6 +21,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.microsoft.fluent.mobile.icons.R
+import ru.mygames.classicsnake.domain.models.Direction
+import ru.mygames.classicsnake.ui.screens.game.models.GameEvent
 
 import ru.mygames.classicsnake.ui.theme.ClassicSnakeTheme
 import ru.mygames.classicsnake.ui.theme.components.JetIconButton
@@ -28,8 +30,8 @@ import ru.mygames.classicsnake.ui.theme.components.JetIconButton
 @Composable
 fun GameBottomBar(
     modifier: Modifier = Modifier,
-    //snakeDirection: Direction,
-    //dispatcher: (GameEvent) -> Unit
+    snakeDirection: Direction,
+    dispatcher: (GameEvent) -> Unit
 ) {
     Box(modifier = modifier
         .background(
@@ -56,10 +58,10 @@ fun GameBottomBar(
             JetIconButton(
                 modifier = Modifier.size(74.dp, 48.dp),
                 resId = R.drawable.ic_fluent_arrow_up_24_filled,
-                iconColor = Color.Black
-                //enabled = snakeDirection != Direction.DOWN
+                iconColor = Color.Black,
+                enabled = snakeDirection != Direction.DOWN
             ) {
-                //dispatcher.invoke(GameEvent.ChangeSnakeDirection(Direction.UP))
+                dispatcher.invoke(GameEvent.ChangeSnakeDirection(Direction.UP))
             }
 
             Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -67,27 +69,27 @@ fun GameBottomBar(
                     modifier = Modifier.size(74.dp, 48.dp),
                     resId = R.drawable.ic_fluent_arrow_left_24_filled,
                     iconColor = Color.Black,
-                    //enabled = snakeDirection != Direction.RIGHT
+                    enabled = snakeDirection != Direction.RIGHT
                 ) {
-                    //dispatcher.invoke(GameEvent.ChangeSnakeDirection(Direction.LEFT))
+                    dispatcher.invoke(GameEvent.ChangeSnakeDirection(Direction.LEFT))
                 }
 
                 JetIconButton(
                     modifier = Modifier.size(74.dp, 48.dp),
                     resId = R.drawable.ic_fluent_arrow_down_24_filled,
                     iconColor = Color.Black,
-                    //enabled = snakeDirection != Direction.UP
+                    enabled = snakeDirection != Direction.UP
                 ) {
-                    //dispatcher.invoke(GameEvent.ChangeSnakeDirection(Direction.DOWN))
+                    dispatcher.invoke(GameEvent.ChangeSnakeDirection(Direction.DOWN))
                 }
 
                 JetIconButton(
                     modifier = Modifier.size(74.dp, 48.dp),
                     resId = R.drawable.ic_fluent_arrow_right_24_filled,
-                    iconColor = Color.Black
-                    //enabled = snakeDirection != Direction.LEFT
+                    iconColor = Color.Black,
+                    enabled = snakeDirection != Direction.LEFT
                 ) {
-                    //dispatcher.invoke(GameEvent.ChangeSnakeDirection(Direction.RIGHT))
+                    dispatcher.invoke(GameEvent.ChangeSnakeDirection(Direction.RIGHT))
                 }
             }
         }
@@ -100,7 +102,7 @@ private fun GameBottomBarPreview() {
     ClassicSnakeTheme {
         GameBottomBar(
             modifier = Modifier.fillMaxWidth(),
-            //snakeDirection = Direction.UP)
-        )
+            snakeDirection = Direction.LEFT,
+        ) {}
     }
 }
