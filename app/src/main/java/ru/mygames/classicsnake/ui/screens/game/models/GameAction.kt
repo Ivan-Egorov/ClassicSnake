@@ -6,5 +6,5 @@ sealed interface GameAction: UiAction {
 
     data object CloseScreen: GameAction
 
-    data class ShowDialog(val sessionTime: String, val score: Int): GameAction
+    //data class ShowDialog(val sessionTime: String, val score: Int): GameAction
 }

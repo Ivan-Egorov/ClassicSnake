@@ -1,13 +1,11 @@
 package ru.mygames.classicsnake.data.local.datastore
 
-import android.widget.Toast
 import androidx.datastore.core.Serializer
 import kotlinx.serialization.json.Json
 import java.io.InputStream
 import java.io.OutputStream
 
-
-class UserSettingsSerializer() : Serializer<UserSettings> {
+class UserSettingsSerializer: Serializer<UserSettings> {
 
     override val defaultValue: UserSettings
         get() = UserSettings()
@@ -15,7 +13,6 @@ class UserSettingsSerializer() : Serializer<UserSettings> {
     override suspend fun readFrom(input: InputStream): UserSettings {
         try {
             input.use { stream ->
-
                 return Json.decodeFromString(
                     deserializer = UserSettings.serializer(),
                     string = stream.readBytes().decodeToString()
@@ -26,14 +23,13 @@ class UserSettingsSerializer() : Serializer<UserSettings> {
         }
     }
 
-    override suspend fun writeTo(settings: UserSettings, output: OutputStream) {
+    override suspend fun writeTo(t: UserSettings, output: OutputStream) {
         try {
             output.use { stream ->
                 stream.write(
-
                     Json.encodeToString(
                         serializer = UserSettings.serializer(),
-                        value = settings
+                        value = t
                     ).encodeToByteArray()
                 )
             }

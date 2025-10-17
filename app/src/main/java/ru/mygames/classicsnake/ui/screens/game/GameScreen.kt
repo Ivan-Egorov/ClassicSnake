@@ -12,7 +12,6 @@ import ru.mygames.classicsnake.ui.screens.game.models.GameAction
 import ru.mygames.classicsnake.ui.screens.game.models.GameEvent
 import ru.mygames.classicsnake.ui.screens.game.models.GameViewState
 import ru.mygames.classicsnake.ui.screens.game.views.GameViewDisplay
-import ru.mygames.classicsnake.ui.theme.ClassicSnakeTheme
 
 @Composable
 fun GameScreen(

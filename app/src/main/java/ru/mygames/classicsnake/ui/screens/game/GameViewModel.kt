@@ -5,9 +5,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import ru.mygames.classicsnake.data.local.datastore.DataStoreManager
-import ru.mygames.classicsnake.data.local.datastore.GameBoardSize
 import ru.mygames.classicsnake.data.local.datastore.GameLevel
-import ru.mygames.classicsnake.data.local.datastore.GameRules
 import ru.mygames.classicsnake.domain.models.BonusItem
 import ru.mygames.classicsnake.domain.models.BonusType
 import ru.mygames.classicsnake.domain.models.CollisionStatus
@@ -27,8 +25,9 @@ import kotlin.random.Random
 class GameViewModel(
     private val dataStoreManager: DataStoreManager,
     private val snakeController: SnakeController
-) : BaseViewModel<GameEvent, GameViewState, GameAction>(initialState = GameViewState.Loading) {
-
+): BaseViewModel<GameEvent, GameViewState, GameAction>(
+    initialState = GameViewState.Loading
+) {
     override fun obtainEvent(event: GameEvent) {
         when(val state = viewState) {
             is GameViewState.Loading -> reduce(state, event)
@@ -37,7 +36,7 @@ class GameViewModel(
     }
 
     private fun reduce(state: GameViewState.Loading, event: GameEvent) {
-        when (event) {
+        when(event) {
             is GameEvent.EnterScreen -> loadGame()
             else -> {}
         }
@@ -53,8 +52,8 @@ class GameViewModel(
     private fun loadGame() {
         viewModelScope.launch {
             while (true) {
-                when (val state = viewState) {
-                    GameViewState.Loading -> {
+                when(val state = viewState) {
+                    is GameViewState.Loading -> {
                         val appSettings = dataStoreManager.appSettings.first()
 
                         val gameLevelConfig = when(appSettings.gameLevel) {
@@ -99,11 +98,11 @@ class GameViewModel(
                         }
 
                         val snakeCollisionStatus = snakeController.checkCollision(
-                                state.snake,
-                                state.boardSize,
-                                state.bonusItems,
-                                state.blockItems
-                            )
+                            snake = snake,
+                            boardSize = state.boardSize,
+                            bonusItems = bonusItems,
+                            blockItems = blockItems
+                        )
 
                         when (snakeCollisionStatus) {
                             is CollisionStatus.Board -> {
@@ -129,7 +128,7 @@ class GameViewModel(
                             }
 
                             is CollisionStatus.BlockItem -> {
-                                if (state.gameRules.damageColliderEnabled) {
+                                if(state.gameRules.damageColliderEnabled) {
                                     currentSnakeLives--
                                 }
                                 snake = snakeController.discard(snake, 1)
@@ -171,17 +170,16 @@ class GameViewModel(
 
                         time += state.gameLevelConfig.snakeSpeed
 
-                        viewState =
-                            state.copy(
-                                snake = snake,
-                                currentSnakeLives = currentSnakeLives,
-                                bonusItems = bonusItems,
-                                blockItems = blockItems,
-                                score = score,
-                                time = time,
-                                sessionTime = convertTimeToString(time),
-                                gameStatus = gameStatus
-                            )
+                        viewState = state.copy(
+                            snake = snake,
+                            currentSnakeLives = currentSnakeLives,
+                            bonusItems = bonusItems,
+                            blockItems = blockItems,
+                            score = score,
+                            time = time,
+                            sessionTime = convertTimeToString(time),
+                            gameStatus = gameStatus
+                        )
 
                         delay(state.gameLevelConfig.snakeSpeed)
                     }
@@ -208,8 +206,8 @@ class GameViewModel(
     }
 
     private fun convertTimeToString(time: Long): String {
-        val allSeconds = time/1000
-        val minutes = allSeconds/60
+        val allSeconds = time / 1000
+        val minutes = allSeconds / 60
         val seconds = allSeconds % 60
 
         val minutesStr = if(minutes < 10) "0$minutes" else "$minutes"
@@ -226,23 +224,26 @@ class GameViewModel(
             randomRow = Random.nextInt(0, state.boardSize.rows)
             randomColumn = Random.nextInt(0, state.boardSize.columns)
         } while (
-            state.blockItems.any { it.x != randomRow && it.y != randomColumn} ||
-            state.snake.body.any { it.x != randomRow && it.y != randomColumn} ||
-            state.bonusItems.any { it.position.x != randomRow && it.position.y != randomColumn}
+            state.bonusItems.any { it.position.x == randomColumn && it.position.y == randomRow} ||
+            state.blockItems.any { it.x == randomColumn && it.y == randomRow} ||
+            state.snake.body.any { it.x == randomColumn && it.y == randomRow}
         )
 
-        return Point(randomRow, randomColumn)
+        return Point(randomColumn, randomRow)
     }
 
     private fun generateBonusItem(state: GameViewState.Display): BonusItem {
-        //val freePoint = findEmptyGameBoardCell(state)
+        //val point = findEmptyGameBoardCell(state)
+
         return BonusItem(
             position = findEmptyGameBoardCell(state),
-            status = BonusType.IncreaseScore
+            type = BonusType.IncreaseScore
         )
     }
 
     private fun generateBlockItem(state: GameViewState.Display): Point {
+        //val point = findEmptyGameBoardCell(state)
+
         return findEmptyGameBoardCell(state)
     }
 }

@@ -2,7 +2,7 @@ package ru.mygames.classicsnake.domain.models
 
 data class BonusItem(
     val position: Point,
-    val status: BonusType
+    val type: BonusType
 )
 
 sealed interface BonusType {
