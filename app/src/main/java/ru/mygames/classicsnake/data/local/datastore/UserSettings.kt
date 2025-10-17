@@ -5,8 +5,8 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class UserSettings(
     val gameLevel: GameLevel = GameLevel.Normal,
-    val boardSize: GameBoardSize = GameBoardSize.Medium,
-    val spawnChanceOfBonusItems: SpawnChanceOfBonusItems = SpawnChanceOfBonusItems.Normal,
+    val boardSize: GameBoardSize = GameBoardSize.Small,
+    val spawnChanceOfBonusItems: SpawnChanceOfBonusItems = SpawnChanceOfBonusItems.Often,
     val gameRules: GameRules = GameRules(),
     val gameResults: Map<GameLevel, List<UserGameResultDto>> = emptyMap()
 )
@@ -19,10 +19,10 @@ data class UserGameResultDto(
 
 @Serializable
 data class GameRules(
-    val randomWallsEnabled: Boolean = true,
+    val randomWallsEnabled: Boolean = false,
     val extraLivesEnabled: Boolean = false,
     val throwTailEnabled: Boolean = false,
-    val damageColliderEnabled: Boolean = true
+    val damageColliderEnabled: Boolean = false
 )
 
 @Serializable

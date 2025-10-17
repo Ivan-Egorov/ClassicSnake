@@ -57,7 +57,8 @@ fun GameBottomBar(
         ) {
             JetIconButton(
                 modifier = Modifier.size(74.dp, 48.dp),
-                resId = R.drawable.ic_fluent_arrow_up_24_filled,
+                //resId = R.drawable.ic_fluent_arrow_up_24_filled,
+                resId = R.drawable.ic_fluent_caret_up_24_filled,
                 iconColor = Color.Black,
                 enabled = snakeDirection != Direction.DOWN
             ) {
@@ -67,7 +68,8 @@ fun GameBottomBar(
             Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 JetIconButton(
                     modifier = Modifier.size(74.dp, 48.dp),
-                    resId = R.drawable.ic_fluent_arrow_left_24_filled,
+                    //resId = R.drawable.ic_fluent_arrow_left_24_filled,
+                    resId = R.drawable.ic_fluent_caret_left_24_filled,
                     iconColor = Color.Black,
                     enabled = snakeDirection != Direction.RIGHT
                 ) {
@@ -76,7 +78,8 @@ fun GameBottomBar(
 
                 JetIconButton(
                     modifier = Modifier.size(74.dp, 48.dp),
-                    resId = R.drawable.ic_fluent_arrow_down_24_filled,
+                    //resId = R.drawable.ic_fluent_arrow_down_24_filled,
+                    resId = R.drawable.ic_fluent_caret_down_24_filled,
                     iconColor = Color.Black,
                     enabled = snakeDirection != Direction.UP
                 ) {
@@ -85,7 +88,8 @@ fun GameBottomBar(
 
                 JetIconButton(
                     modifier = Modifier.size(74.dp, 48.dp),
-                    resId = R.drawable.ic_fluent_arrow_right_24_filled,
+                    //resId = R.drawable.ic_fluent_arrow_right_24_filled,
+                    resId = R.drawable.ic_fluent_caret_right_24_filled,
                     iconColor = Color.Black,
                     enabled = snakeDirection != Direction.LEFT
                 ) {

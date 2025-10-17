@@ -45,7 +45,7 @@ fun GameTopBar(
             verticalAlignment = Alignment.CenterVertically
         ) {
             JetCounter(
-                resId = R.drawable.ic_fluent_time_picker_24_filled,
+                resId = R.drawable.ic_fluent_clock_24_filled,
                 value = sessionTime
             )
             JetCounter(
