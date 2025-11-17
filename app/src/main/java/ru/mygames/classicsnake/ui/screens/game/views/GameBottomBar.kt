@@ -44,8 +44,11 @@ fun GameBottomBar(
                 .align(Alignment.TopEnd)
                 .padding(top = 16.dp, end = 16.dp)
                 .size(72.dp, 48.dp),
-            resId = R.drawable.ic_fluent_settings_24_filled,
-            iconColor = Color.White) {
+            //resId = R.drawable.ic_fluent_settings_24_filled,
+            resId = R.drawable.ic_fluent_arrow_hook_up_left_24_filled,
+            iconColor = Color.Black
+        ) {
+            dispatcher.invoke(GameEvent.CloseScreen)
         }
 
         Column(

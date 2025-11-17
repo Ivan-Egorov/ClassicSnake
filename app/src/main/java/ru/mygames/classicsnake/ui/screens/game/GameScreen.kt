@@ -40,7 +40,11 @@ fun GameScreen(
 
         is GameViewState.Display -> {
             GameViewDisplay(state = state) { event ->
-                viewModel.obtainEvent(event)
+                when (event) {
+                    GameEvent.CloseScreen -> navController.navigateUp()
+                    is GameEvent.ChangeSnakeDirection -> viewModel.obtainEvent(event)
+                    else -> {}
+                }
             }
         }
     }

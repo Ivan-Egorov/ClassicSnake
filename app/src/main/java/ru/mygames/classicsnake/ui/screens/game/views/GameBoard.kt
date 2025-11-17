@@ -32,7 +32,7 @@ import ru.mygames.classicsnake.domain.models.Direction
 import ru.mygames.classicsnake.domain.models.Point
 import ru.mygames.classicsnake.domain.models.Snake
 import ru.mygames.classicsnake.ui.theme.ClassicSnakeTheme
-
+import kotlin.random.Random
 
 
 @Composable
@@ -44,22 +44,52 @@ fun GameBoard(
     boardSize: GameBoardSize
 ) {
     val context = LocalContext.current
+    val faces = listOf(
+        R.drawable.snake_disappointed,
+        R.drawable.snake_happy,
+        R.drawable.snake_hollywood,
+        R.drawable.snake_impressed,
+        R.drawable.snake_incredulous,
+        R.drawable.snake_laugh,
+        R.drawable.snake_lol,
+        R.drawable.snake_loved,
+        R.drawable.snake_pain,
+        R.drawable.snake_panic,
+        R.drawable.snake_pokerface,
+        R.drawable.snake_sad,
+        R.drawable.snake_shocked,
+        R.drawable.snake_shy,
+        R.drawable.snake_smile,
+        R.drawable.snake_smirk,
+        R.drawable.snake_unsatisfied)
 
-    val snakeHeadImage = remember {
+    /*val snakeHeadImage = remember {
         context.getDrawable(R.drawable.ic_snake_head)?.toBitmap()?.asImageBitmap()
+    }*/
+    val snakeHeadImage = remember {
+        context.getDrawable(faces[Random.nextInt(faces.size)])?.toBitmap()?.asImageBitmap()
     }
 
-    val snakeTailImage = remember {
+    /*val snakeTailImage = remember {
         context.getDrawable(R.drawable.ic_snake_tail)?.toBitmap()?.asImageBitmap()
+    }*/
+    val snakeTailImage = remember {
+        context.getDrawable(R.drawable.snake_body)?.toBitmap()?.asImageBitmap()
     }
 
-    val appleImage = remember {
+    /*val appleImage = remember {
         context.getDrawable(R.drawable.ic_apple)?.toBitmap()?.asImageBitmap()
+    }*/
+    val appleImage = remember {
+        context.getDrawable(R.drawable.apple_pink)?.toBitmap()?.asImageBitmap()
     }
 
     val wallImage = remember {
         context.getDrawable(R.drawable.ic_wall)?.toBitmap()?.asImageBitmap()
     }
+    /*val wallImage = remember {
+        context.getDrawable(R.drawable.building)?.toBitmap()?.asImageBitmap()
+    }*/
 
     BoxWithConstraints(
         modifier = modifier.border(
